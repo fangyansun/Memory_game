@@ -11,8 +11,7 @@
   background: silver;
 }
 
-.memory > .card.justMatched,
-.memory > .card.justMismatched {
+.memory > .card.justMatched{
   outline: 0.1em solid green;
 }
 .memory > .card.justMismatched {

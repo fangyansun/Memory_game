@@ -1,5 +1,6 @@
 import React from 'react'
 import './HallOfFame.css'
+import PropTypes from 'prop-types'
 
 const HallOfFame = ({ entries }) => (
   <table className="hallOfFame">
@@ -15,13 +16,48 @@ const HallOfFame = ({ entries }) => (
   </table>
 )
 
+HallOfFame.propTypes = {
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      date: PropTypes.string.isRequired,
+      guesses: PropTypes.number.isRequired,
+      player: PropTypes.string.isRequired,
+      id: PropTypes.number.isRequired,
+    })
+  ).isRequired,
+}
+
 export default HallOfFame
 
 // == Internal helpers ==============================================
+const HOF_KEY = '::Memory::HallofFame'
+const HOF_MAX_SIZE = 10
 
-export const FAKE_HOF = [
-  { id: 3, guesses: 18, date: '10/10/2017', player: 'Jane' },
-  { id: 2, guesses: 23, date: '11/10/2017', player: 'Kevin' },
-  { id: 1, guesses: 31, date: '06/10/2017', player: 'Louisa' },
-  { id: 0, guesses: 48, date: '14/10/2017', player: 'Marc' },
-]
+export function saveHOFEntry(entry, onStored){
+  entry.date = new Date().toLocaleDateString()
+  entry.id = Date.now()
+
+  const entries = JSON.parse(localStorage.getItem(HOF_KEY) || '[]')
+
+  //findIndex() method returns the index of the first
+  //element in the array that satisfies the provided testing function
+  const insertionPoint = entries.findIndex(
+    ({guesses})=> guesses >= entry.guesses
+  )
+
+  //if the entries.guesses if the biggest element, then add it in the end
+  //else, it should be insert in the middle
+  if (insertionPoint ===-1){
+    entries.push(entry)
+  } else{
+    entries.splice(insertionPoint, 0, entry)
+  }
+
+  //we only take the TOP "HOF_MAX_SIZE" of elements
+  if (entries.length > HOF_MAX_SIZE){
+    entries.splice(HOF_MAX_SIZE, entries.length)
+  }
+
+  localStorage.setItem(HOF_KEY, JSON.stringify(entries))
+  onStored(entries)
+}
