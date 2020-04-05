@@ -36,16 +36,13 @@ class App extends Component {
     const indexMatched = matchedCardIndices.includes(index)
 
     if (currentPair.length < 2) {
-      console.log("case0")
       return indexMatched || index === currentPair[0] ? 'visible' : 'hidden'
     }
 
     if (currentPair.includes(index)) {
-      console.log("case1")
       return indexMatched ? 'justMatched' : 'justMismatched'
     }
 
-    console.log("case2")
     return indexMatched ? 'visible' : 'hidden'
   }
 
@@ -53,7 +50,6 @@ class App extends Component {
   // Arrow fx for binding
   handlerCardClick=index => {
     const {cards, currentPair, guesses, matchedCardIndices} = this.state
-    console.log(this.state, index)
 
     if (currentPair.length===2){
       console.log("length = 2")
@@ -61,15 +57,11 @@ class App extends Component {
     }
 
     if (currentPair.length ===0){
-      console.log("length = 0", this)
       this.setState({currentPair: [index]})
       return
     }
 
     if (currentPair.length ===1){
-      console.log("index:", index)
-      console.log("length = 1")
-      //const {cards, currentPair, guesses, matchedCardIndices} = this.state
       const newPair = [currentPair[0], index]
       const newGuesses = guesses +1
       const matched = cards[newPair[0]] === cards[newPair[1]]
