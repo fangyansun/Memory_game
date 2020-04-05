@@ -23,7 +23,7 @@ class HighScoreInput extends Component {
       <form className="highScoreInput" onSubmit={this.persisWinner}>
         <p>
           <label>
-            Bravo ! Entre ton prénom :
+            Great ! Please enter your name :
             <input
               autoComplete="given-name"
               type="text"
@@ -31,7 +31,7 @@ class HighScoreInput extends Component {
               value={this.state.winner}
             />
           </label>
-          <button type="submit">J’ai gagné !</button>
+          <button type="submit">I win!</button>
         </p>
       </form>
     )
