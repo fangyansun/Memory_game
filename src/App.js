@@ -7,8 +7,9 @@ import HallOfFame from './HallOfFame'
 import HighScoreInput from './HighScoreInput'
 
 
+
 const SIDE = 6
-const SYMBOLS = '😀🎉💖🎩🐶🐱🦄🐬🌍🌛🌞💫🍎🍌🍓🍐🍟🍿'
+export const SYMBOLS = '😀🎉💖🎩🐶🐱🦄🐬🌍🌛🌞💫🍎🍌🍓🍐🍟🍿'
 const VISUAL_DELAY = 500
 
 class App extends Component {
